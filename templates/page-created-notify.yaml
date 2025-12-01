@@ -1,0 +1,58 @@
+name: page-created-notify
+description: >
+  Trigger on page creation in a Confluence space, optionally generate an
+  AI summary, and send a Slack notification.
+
+parameters:
+  - name: space_key
+    type: string
+    description: Confluence space key to watch (e.g. ENG, DOCS)
+
+  - name: label_filter
+    type: string
+    description: Restrict trigger to pages carrying this label; leave empty for all pages
+    default: ""
+
+  - name: summary_property_key
+    type: string
+    description: Page property key used to store the generated summary
+    default: automation.summary
+
+  - name: slack_webhook_url
+    type: string
+    description: Slack incoming webhook URL
+    secret: true
+
+  - name: generate_summary
+    type: boolean
+    description: Generate an AI summary of the page before sending the notification
+    default: true
+
+trigger:
+  event: page_created
+  conditions:
+    - field: space.key
+      operator: equals
+      value: "{{ space_key }}"
+    - field: page.labels
+      operator: contains
+      value: "{{ label_filter }}"
+      skip_when_empty: true
+
+actions:
+  - name: generate-summary
+    type: generate_summary
+    when: "{{ generate_summary }}"
+    config:
+      source: page.content
+      store_as_property: "{{ summary_property_key }}"
+
+  - name: notify-slack
+    type: send_notification
+    config:
+      channel: slack
+      webhook_url: "{{ slack_webhook_url }}"
+      message: |
+        New page: *{{ page.title }}*
+        Space: {{ space.name }} | Author: {{ page.author.displayName }}
+        {{ page.url }}

@@ -1,0 +1,12 @@
+name: engineering-updates-notify
+description: >
+  Notify #engineering-updates whenever a page is updated in the ENG space
+  and attach an AI-generated summary of the changes.
+
+template: page-updated-notify
+
+parameters:
+  space_key: ENG
+  slack_webhook_url: "${SLACK_WEBHOOK_ENG_UPDATES}"
+  generate_summary: true
+  apply_reviewed_label: false

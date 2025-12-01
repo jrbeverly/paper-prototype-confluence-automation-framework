@@ -1,0 +1,12 @@
+{
+  "name": "confluence-automation-deploy",
+  "version": "0.1.0",
+  "description": "Deploys generated Confluence Automation definitions to Confluence Cloud via REST",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}

@@ -1,0 +1,12 @@
+name: engineering-docs-notify
+description: >
+  Notify #engineering-docs whenever an RFC page is created in the ENG
+  space and attach an AI-generated summary.
+
+template: page-created-notify
+
+parameters:
+  space_key: ENG
+  label_filter: rfc
+  slack_webhook_url: "${SLACK_WEBHOOK_ENG_DOCS}"
+  generate_summary: true

@@ -1,0 +1,15 @@
+{
+  "name": "confluence-automation-generator",
+  "version": "0.1.0",
+  "description": "Transforms automation templates and configs into Confluence Automation rule definitions",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
